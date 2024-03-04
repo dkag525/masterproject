@@ -2,23 +2,32 @@ import React, { useState } from "react";
 import "../Home/Home.css";
 import BankDashImage from "../../Image/BankDashImage.png";
 import Calculator from "../../Image/Calculator.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [mouseOver, setOnMouseHover] = useState("BankDashImage");
+  const navigate = useNavigate();
 
   const ProjectList = [
     {
       ProjectName: "BankDash Project",
       ProjectImage: BankDashImage,
+      route: "/bankdash",
     },
     {
       ProjectName: "Calculator",
       ProjectImage: Calculator,
+      route: "/calculator",
     },
   ];
 
+  const [mouseOver, setOnMouseHover] = useState(ProjectList[0].ProjectImage);
+
   const onmouseover = (element, index) => {
     setOnMouseHover(element.ProjectImage);
+  };
+
+  const HandleClick = (element, index) => {
+    navigate(element.route);
   };
 
   return (
@@ -45,6 +54,7 @@ const Home = () => {
                     }
                     key={i}
                     onMouseOver={() => onmouseover(el, i)}
+                    onClick={() => HandleClick(el, i)}
                   >
                     {el.ProjectName}
                   </li>
